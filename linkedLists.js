@@ -103,7 +103,7 @@ class LinkedList {
     this.length--;
   }
 
-  // returns true if the passed in value is in the list and otherwise returns false.
+  // returns true if the passed in value is in the list and otherwise returns false
   contains(value) {
     let currentNode = this.headNode;
 
@@ -118,7 +118,7 @@ class LinkedList {
     return false;
   }
 
-  // returns the index of the node containing value, or null if not found.
+  // returns the index of the node containing value, or null if not found
   find(value) {
     let currentNode = this.headNode;
     let count = 0;
@@ -156,9 +156,46 @@ class LinkedList {
 
     return string;
   }
+
+  // inserts a new node with the provided value at the given index
+  insertAt(value, index) {
+    if (index < 0 || index > this.length) {
+      return null;
+    }
+
+    const newNode = new Node(value);
+
+    if (index === 0) {
+      newNode.next = this.headNode;
+      this.headNode = newNode;
+    } else {
+      let currentNode = this.headNode;
+      let prevNode = null;
+      let count = 0;
+
+      while (count < index) {
+        prevNode = currentNode;
+        currentNode = currentNode.next;
+        count++;
+      }
+
+      prevNode.next = newNode;
+      newNode.next = currentNode;
+    }
+
+    this.length++;
+  }
 }
 
-// **Extra Credit**
-//   - insertAt(value, index) that inserts a new node with the provided value at the given index.
-//   - removeAt(index) that removes the node at the given index.
-//   - Extra Credit Tip: When you insert or remove a node, consider how it will affect the existing nodes. Some of the nodes will need their nextNode link updated.
+const list = new LinkedList();
+
+list.append("1");
+list.append("2");
+list.append("3");
+list.append("4");
+
+list.prepend("Co?");
+
+list.insertAt("Chuj", 2);
+
+console.log(list.toString());
